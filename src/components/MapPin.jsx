@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import StreetView from 'react-google-streetview';
+import React, { useState } from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import StreetView from "react-google-streetview";
 
 const containerStyle = {
-  width: '100%',
-  height: '400px',
+  width: "100%",
+  height: "400px",
 };
 
 const defaultCenter = {
@@ -12,10 +12,10 @@ const defaultCenter = {
   lng: 76.6413,
 };
 
-function MyComponent() {
+function MapPin() {
   const [clickedLocation, setClickedLocation] = useState(null);
-  const [inputLat, setInputLat] = useState('');
-  const [inputLng, setInputLng] = useState('');
+  const [inputLat, setInputLat] = useState("");
+  const [inputLng, setInputLng] = useState("");
   const [showStreetView, setShowStreetView] = useState(false); // Add this state
 
   const handleMapClick = (e) => {
@@ -36,7 +36,7 @@ function MyComponent() {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyCAZjmuwEHvJhOeNlDZQTeow3pdYC46S08">
+    <LoadScript googleMapsApiKey="AIzaSyAe4Kn7qUywgItX15fUruQWcoroJN2R0-Y">
       <div>
         <div>
           <label>Enter Latitude: </label>
@@ -56,7 +56,7 @@ function MyComponent() {
         </div>
         <button onClick={handleSpotLocation}>Spot Location</button>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={defaultCenter}
@@ -66,9 +66,9 @@ function MyComponent() {
           {clickedLocation && <Marker position={clickedLocation} />}
         </GoogleMap>
         {showStreetView && clickedLocation && (
-          <div style={{ width: '50%', height: '400px', padding: '10px' }}>
+          <div style={{ width: "50%", height: "400px", padding: "10px" }}>
             <StreetView
-              apiKey="YOUR_GOOGLE_MAPS_API_KEY"
+              apiKey=""
               streetViewPanoramaOptions={{
                 position: clickedLocation,
                 pov: { heading: 100, pitch: 0 },
@@ -88,4 +88,4 @@ function MyComponent() {
   );
 }
 
-export default MyComponent;
+export default MapPin;
