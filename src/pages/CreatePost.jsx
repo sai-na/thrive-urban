@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FormField } from "../components";
+import { GoogleMap } from "@react-google-maps/api";
 
 const CreatePost = () => {
   const [flag, setFlag] = useState(false);
@@ -159,6 +160,8 @@ const CreatePost = () => {
               handleChange={(e) => handleFormFieldChange("description", e)}
               isTextArea
             />
+
+            <GoogleMap/>
 
             <div className="mb-6  xl:max-w-xs">
               <label className="flex-1 max-w-3xl flex flex-col">
