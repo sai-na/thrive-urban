@@ -19,7 +19,9 @@ const CreatePost = () => {
     description: "",
     location: "",
     image: "",
-    StreetViewUrl: "",
+    streetViewUrl: "",
+    roadType: "",
+    postPublicly: true,
   });
 
   //  // const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +51,7 @@ const CreatePost = () => {
 
   return (
     <>
-      <div className="hero min-h-screen w-full bg-base-150">
+      <div className="hero min-h-screen w-full bg-base-150 mb-44">
         <div className="hero-content w-full sm:max-w-3xl flex flex-col">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Hello there</h1>
@@ -67,14 +69,7 @@ const CreatePost = () => {
               value={form.title}
               handleChange={(e) => handleFormFieldChange("title", e)}
             />
-            <FormField
-              labelName="Description"
-              placeholder="Description"
-              inputType="text"
-              value={form.description}
-              handleChange={(e) => handleFormFieldChange("description", e)}
-              isTextArea
-            />
+
             <FormField
               labelName="Location*"
               placeholder="location"
@@ -83,16 +78,101 @@ const CreatePost = () => {
               handleChange={(e) => handleFormFieldChange("location", e)}
             />
 
+            <FormField
+              labelName="Street View Url"
+              placeholder="Street View Url"
+              inputType="text"
+              value={form.streetViewUrl}
+              handleChange={(e) => handleFormFieldChange("streetViewUrl", e)}
+            />
             <div className="mb-6 md:max-w-3xl xl:max-w-6xl">
               <label className="flex-1 max-w-3xl flex flex-col">
                 <span className="block text-left m-2 text-sm font-medium text-gray-900 ">
-                  Select Image
+                  Select Image*
                 </span>
                 <input
                   type="file"
                   className="file-input file-input-bordered file-input-primary w-full"
                   onChange={(e) => {}}
                 />
+              </label>
+            </div>
+            <div className="mb-6 md:max-w-3xl xl:max-w-6xl">
+              <label className="flex-1 max-w-3xl flex flex-col">
+                <span className="block text-left m-2 text-sm font-medium text-gray-900 ">
+                  Type of road*
+                </span>
+                <select
+                  className="select select-primary w-full "
+                  onChange={(e) => handleFormFieldChange("roadType", e)}
+                  value={form.roadType}
+                >
+                  <option disabled selected>
+                    Type of road ?
+                  </option>
+                  <option>Expressways</option>
+                  <option>National highways</option>
+                  <option>State highways</option>
+                  <option>District roads</option>
+                  <option>Rural roads</option>
+                  <option>Border roads</option>
+                </select>
+              </label>
+            </div>
+            <div className="mb-6 md:max-w-3xl xl:max-w-6xl">
+              <label className="flex-1 max-w-3xl flex flex-col">
+                <span className="block text-left m-2 text-sm font-medium text-gray-900 ">
+                  Type of road*
+                </span>
+                <select
+                  className="select select-primary w-full "
+                  onChange={(e) => handleFormFieldChange("roadType", e)}
+                  value={form.roadType}
+                >
+                  <optgroup label="Physical Damage">
+                    <option value="dents">Dents</option>
+                    <option value="scratches">Scratches</option>
+                    <option value="cracks">Cracks</option>
+                    <option value="brokenParts">Bent or broken parts</option>
+                  </optgroup>
+                  <optgroup label="Water Damage">
+                    <option value="waterStains">Water stains</option>
+                    <option value="warping">Warping or swelling</option>
+                    <option value="corrosion">Corrosion</option>
+                  </optgroup>
+                  <optgroup label="Fire Damage">
+                    <option value="charredAreas">Charred or burnt areas</option>
+                    <option value="sootDamage">Soot and smoke damage</option>
+                    <option value="structuralWeakening">
+                      Structural weakening
+                    </option>
+                  </optgroup>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+            </div>
+            <FormField
+              labelName="Description"
+              placeholder="Description"
+              inputType="text"
+              value={form.description}
+              handleChange={(e) => handleFormFieldChange("description", e)}
+              isTextArea
+            />
+
+            <div className="mb-6  xl:max-w-xs">
+              <label className="flex-1 max-w-3xl flex flex-col">
+                <label className="label cursor-pointer">
+                  <span className="block text-left m-2 text-sm font-medium text-gray-900 ">
+                    Post to community forum also
+                  </span>
+                  <input
+                    type="checkbox"
+                    checked={form.postPublicly}
+                    onChange={(e) => setFlag(!form.postPublicly)}
+                    className="checkbox checkbox-primary checkbox-md"
+                  />
+                </label>
               </label>
             </div>
           </form>
