@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaMapLocationDot, FaStreetView } from "react-icons/fa6";
 import { FaLink } from "react-icons/fa";
 import Comment from "./Comment";
+import ShareButtons from "./ShareButtons";
 
 function PostPage() {
   return (
@@ -54,7 +55,7 @@ function PostPage() {
           </div>
           <div className="px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
             <p className="pb-6">
-              Type of road
+              <span className="font-semibold ">Type of Road : </span>
               <div className="badge badge-primary ml-2 font-bold badge-lg">
                 primary
               </div>
@@ -71,6 +72,10 @@ function PostPage() {
                 <FaLink className="ml-2" />
               </div>
             </Link>
+            <ShareButtons
+              shareUrl={"https://example.com"}
+              title={"https://example.com"}
+            />
             <p className="pb-6 mt-4">
               Difficulty on insensible reasonable in. From as went he they.
               Preference themselves me as thoroughly partiality considered on in
@@ -84,7 +89,36 @@ function PostPage() {
             </p>
           </div>
         </main>
-        <Comment />
+        <div className="flex-col  items-center ">
+          <div class="max-w-4xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-lg lg:text-2xl font-bold text-gray-900 ">
+                Discussion (20)
+                {/* comment count */}
+              </h2>
+            </div>
+            <form class="mb-6">
+              <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200  ">
+                <label for="comment" class="sr-only">
+                  Your comment
+                </label>
+                <textarea
+                  id="comment"
+                  rows="6"
+                  class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none   "
+                  placeholder="Write a comment..."
+                  required
+                ></textarea>
+              </div>
+              <button className="btn btn-active btn-primary">Primary</button>
+            </form>
+          </div>
+          <div className="flex mb-10 flex-col items-center">
+            <Comment />
+            <Comment />
+            <Comment />
+          </div>
+        </div>
       </div>
     </>
   );

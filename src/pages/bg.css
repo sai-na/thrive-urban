@@ -1,0 +1,4 @@
+.containe {
+  background-image: url("../static/Background.svg"); /* Specify the path to your SVG file */
+  background-repeat: repeat;
+}

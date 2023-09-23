@@ -1,8 +1,9 @@
 import React from "react";
+import { FaHeart } from "react-icons/fa6";
 
 function Comment() {
   return (
-    <article className="p-6 text-base ml-28 max-w-4xl md:max-w-5xl rounded-xl bg-gray-100 ">
+    <article className="p-6 text-base mb-2  mx-4 max-w-4xl md:max-w-4xl rounded-xl  bg-gray-200 ">
       <footer className="flex justify-between items-center mb-2">
         <div className="flex items-center">
           <p className="inline-flex items-center mr-3 text-sm text-gray-900  font-semibold">
@@ -27,6 +28,13 @@ function Comment() {
         strategy.
       </p>
       <div className="flex items-center mt-4 space-x-4">
+        <button
+          type="button"
+          className="flex items-center text-sm text-gray-900 hover:underline  font-medium"
+        >
+          <FaHeart className="mr-2" /> 5 {/* like count  */}
+          Like
+        </button>
         <button
           type="button"
           className="flex items-center text-sm text-gray-900 hover:underline  font-medium"

@@ -7,9 +7,10 @@ const FormField = ({
   isTextArea,
   value,
   handleChange,
+  mb = "mt-6",
 }) => {
   return (
-    <div className="mb-6 md:max-w-3xl xl:max-w-6xl">
+    <div className={`${mb} md:max-w-3xl xl:max-w-6xl`}>
       <label className="flex-1 max-w-3xl flex flex-col">
         {labelName && (
           <span className="block text-left m-2 text-sm font-medium text-gray-900 ">
