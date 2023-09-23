@@ -1,4 +1,5 @@
 import React from "react";
+import { signIn, signUpWithEmailAndPassword } from "../scripts/auth"; // Import your authentication functions
 
 const FormField = ({
   labelName,
@@ -7,8 +8,31 @@ const FormField = ({
   isTextArea,
   value,
   handleChange,
-  mb = "mt-6",
 }) => {
+  // Define a function to handle the form submission
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    // Depending on your form, you can call the appropriate authentication function here
+    // For example, if it's a signup form:
+    const formData = {
+       
+
+
+      // Gather form data here...
+    };
+
+    try {
+      const user = await signUpWithEmailAndPassword(formData); // Call your signup function
+      console.log("User signed up:", user);
+      // Handle success (e.g., show a success message, redirect, etc.)
+    } catch (error) {
+      console.error("Signup error:", error);
+      // Handle error (e.g., show an error message to the user)
+    }
+  };
+
+ 
   return (
     <div className={`${mb} md:max-w-3xl xl:max-w-6xl`}>
       <label className="flex-1 max-w-3xl flex flex-col">
@@ -23,6 +47,7 @@ const FormField = ({
             value={value}
             onChange={handleChange}
             rows={5}
+            //name = "email"
             placeholder={placeholder}
             className="textarea textarea-primary"
           />
@@ -33,6 +58,7 @@ const FormField = ({
             onChange={handleChange}
             type={inputType}
             placeholder={placeholder}
+            //name = "password"
             className="input input-bordered input-primary  "
           />
         )}
