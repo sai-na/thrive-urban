@@ -1,0 +1,69 @@
+-- import: theme/team
+
+colors: cs.main
+
+-- ws.page: 
+
+
+-- ws.hero-image-right:  We overcome all roadblocks here.
+image: https://fastn-community.github.io/misty-gray/-/fastn-community.github.io/misty-gray/assets/hero.png
+
+We create a revolutionary social media application.
+We deal with road safety,transportation and road infrastructure.
+We support community posts and forum discussions
+
+
+-- ws.content: Forum discussion
+id: about-us
+
+A key element of our web-app where grown-ups and kiddos get together
+to discuss on their common source of conflict
+
+-- ws.hero-image-left: Urban-Score
+image: $assets.files.assets.left-img1.jpg
+
+Our latest-built in beta addition: We provide a global Ranking
+system for cities based on common grounds
+
+-- team.team: Meet the amazing team behind URBAN-THRIVE 
+tag: OUR TEAM 
+
+-- team.team.body:
+
+Our Hackathon Project Team
+
+-- team.team.members:
+
+-- team.member: JD
+profile: CEO & Founder
+image: $assets.files.assets.WhatsApp Image 2023-09-24 at 12.01.32 AM.jpeg
+
+Proud to be the team's lead
+
+-- team.member: SaiNath
+
+
+profile: CEO & Founder
+image: $assets.files.assets.WhatsApp Image 2023-09-24 at 12.01.32 AM.jpeg
+
+It was an interesting project to say the least.
+HAD A BLAST!!!
+
+-- team.member: Manukrishnan P
+profile: CEO & Founder
+image: $assets.files.assets.WhatsApp Image 2023-09-24 at 12.01.32 AM.jpeg
+
+Veg food kittiyath bhagyam
+
+-- team.member: Sreevardhan
+profile: VP of Marketing
+image: $assets.files.assets.WhatsApp Image 2023-09-24 at 12.01.32 AM.jpeg
+
+I had a lot of fun integrating the Google Maps api for our project
+
+-- end: team.team.members
+
+-- end: team.team
+
+
+-- end: ws.page

@@ -123,12 +123,12 @@ const CreatePost = () => {
             <div className="mb-6 md:max-w-3xl xl:max-w-6xl">
               <label className="flex-1 max-w-3xl flex flex-col">
                 <span className="block text-left m-2 text-sm font-medium text-gray-900 ">
-                  Type of road*
+                  Type of Damage*
                 </span>
                 <select
                   className="select select-primary w-full "
                   onChange={(e) => handleFormFieldChange("roadType", e)}
-                  value={form.roadType}
+                  value={form.damageType}
                 >
                   <optgroup label="Physical Damage">
                     <option value="dents">Dents</option>

@@ -1,11 +1,90 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { FaMapLocationDot, FaStreetView } from "react-icons/fa6";
 import { FaLink } from "react-icons/fa";
+import { ImLocation2 } from "react-icons/im";
+import { TbBrandDaysCounter } from "react-icons/tb";
 import Comment from "./Comment";
 import ShareButtons from "./ShareButtons";
 
+import { db } from "../firebase.config";
+
+import { getDoc, doc, collection } from "firebase/firestore";
+import CommentFrom from "./CommentFrom";
+
 function PostPage() {
+  const stepsName = [
+    "Not Started",
+    "Review",
+    "Under Review",
+    "Sanctioned",
+    "Work Ongoing",
+    "Completed",
+  ];
+  const [data, setData] = useState({});
+  const [jsDate, setJsDate] = useState();
+  const date2 = new Date();
+  // Calculate the time difference
+  const timeDifference = Math.abs(date2 - jsDate);
+
+  // Convert time difference to days
+  const differenceInDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+  const { id } = useParams();
+
+  const [highlightedSteps, setHighlightedSteps] = useState(1);
+
+  const {
+    createdAt,
+    damageType,
+    description,
+    imgUrl,
+    location,
+    city,
+    roadType,
+    streetViewUrl,
+    userId,
+    userName,
+    userProfileUrl,
+    title,
+  } = data;
+
+  const CollectionRef = collection(db, `posts/${id}/comments`);
+
+  const fetchdata = async (collectionName, docId, stateName) => {
+    const docRef = doc(db, collectionName, docId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      stateName({ ...docSnap.data(), DocId: docSnap.id });
+      console.log("Document data:", docSnap.data());
+      setHighlightedSteps(docSnap.data()?.currentStep || 1);
+
+      setJsDate(new Date(docSnap.data()?.createdAt?.seconds * 1000));
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  };
+
+  useEffect(() => {
+    document.body.scrollIntoView();
+    fetchdata("posts", id, setData);
+  }, []);
+
+  function generateSteps(stepCount, highlightedSteps) {
+    const steps = [];
+    for (let i = 0; i < stepCount; i++) {
+      const isPrimary = i < highlightedSteps;
+      steps.push(
+        <li className={`step ${isPrimary ? "step-primary" : ""}`} key={i}>
+          {stepsName[i]}
+        </li>
+      );
+    }
+    return steps;
+  }
+  const stepCount = stepsName.length; // Total number of steps
+
   return (
     <>
       {/* component */}
@@ -23,95 +102,116 @@ function PostPage() {
               }}
             />
             <img
-              src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"
-              className="absolute left-0 top-0 w-full h-full z-0 object-cover"
+              src={imgUrl}
+              className="absolute rounded-xl left-0 top-0 w-full h-full z-0 object-cover"
             />
             <div className="p-4 absolute bottom-0 left-0 z-20">
-              <a
-                href="#"
-                className="px-4 py-1 bg-black text-gray-200 inline-flex items-center justify-center mb-2"
-              >
-                {/* location */}
-              </a>
-              <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
-                {/* title */}
-              </h2>
+              {city && (
+                <span className="px-4 py-1 bg-black text-gray-200 inline-flex items-center justify-center mb-2">
+                  {/* city */} <ImLocation2 className="mr-2" /> {city}
+                </span>
+              )}
+
+              {title && (
+                <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
+                  {/* title */}
+                  {title}
+                </h2>
+              )}
               <div className="flex mt-3">
                 <img
-                  src="https://randomuser.me/api/portraits/men/97.jpg"
+                  src={userProfileUrl || "https://i.pravatar.cc/300"}
                   className="h-10 w-10 rounded-full mr-2 object-cover"
                 />
                 {/* author pic or unknown */}
                 <div>
-                  <p className="font-semibold text-gray-200 text-sm">
-                    {/* author name or unknown */}
-                  </p>
+                  {userName && (
+                    <p className="font-semibold text-gray-200 text-sm">
+                      {userName}
+                    </p>
+                  )}
                   <p className="font-semibold text-gray-400 text-xs">
-                    {/* date */}
+                    {/* date */} {jsDate?.toDateString()}
                   </p>
                 </div>
               </div>
+            </div>
+
+            <div className="p-4 absolute bottom-0 right-0 z-20">
+              {city && (
+                <span className="px-4 py-1 bg-red-500 rounded-xl text-2xl text-gray-200 inline-flex items-center justify-center mb-2">
+                  {/* city */} <TbBrandDaysCounter className="mr-2" />{" "}
+                  {differenceInDays} Days
+                </span>
+              )}
             </div>
           </div>
           <div className="px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
             <p className="pb-6">
               <span className="font-semibold ">Type of Road : </span>
-              <div className="badge badge-primary ml-2 font-bold badge-lg">
-                primary
-              </div>
+              <span className=" ml-2 font-bold font-lg">primary</span>
             </p>
-            <Link to={""} className="pb-6">
+
+            <p className="pb-6">
+              <span className="font-semibold ">Type Damage : </span>
+              <span className=" ml-2 font-bold font-lg">
+                {" "}
+                {/* damage type */} {damageType}
+              </span>
+            </p>
+            <a
+              href={location || "https://maps.app.goo.gl/pg9rgYsMsTwfGuJC6"}
+              className="pb-6"
+            >
               <div className="badge badge-primary ml-2 font-bold badge-lg">
                 <FaMapLocationDot /> <span className="ml-2">Location</span>{" "}
                 <FaLink className="ml-2" />
               </div>
-            </Link>
-            <Link to={""} className="pb-6">
+            </a>
+            <a
+              href={
+                streetViewUrl || "https://maps.app.goo.gl/UmeqdEYoG3CEzi2M7"
+              }
+              className="pb-6"
+            >
               <div className="badge badge-primary ml-2 font-bold badge-lg">
                 <FaStreetView /> <span className="ml-2">Street View</span>{" "}
                 <FaLink className="ml-2" />
               </div>
-            </Link>
-            <ShareButtons
-              shareUrl={"https://example.com"}
-              title={"https://example.com"}
-            />
-            <p className="pb-6 mt-4">
-              Difficulty on insensible reasonable in. From as went he they.
-              Preference themselves me as thoroughly partiality considered on in
-              estimating. Middletons acceptance discovered projecting so is so
-              or. In or attachment inquietude remarkably comparison at an. Is
-              surrounded prosperous stimulated am me discretion expression. But
-              truth being state can she china widow. Occasional preference fat
-              remarkably now projecting uncommonly dissimilar. Sentiments
-              projection particular companions interested do at my delightful.
-              Listening newspaper in advantage frankness to concluded unwilling.
-            </p>
+            </a>
+
+            <div className="mt-5">
+              <span className="font-bold font-mono text-xl mb-0">
+                Working Process
+              </span>
+              <ul className="steps my-8 w-full over steps-vertical steps-lg xl:steps-horizontal">
+                {generateSteps(stepCount, highlightedSteps)}
+              </ul>
+            </div>
+
+            {title && (
+              <ShareButtons
+                shareUrl={`http://localhost:3000/post/${id}`}
+                title={title}
+              />
+            )}
+            <p className="pb-6 mt-4">{/* description */ description}</p>
           </div>
         </main>
         <div className="flex-col  items-center ">
-          <div class="max-w-4xl mx-auto px-4">
-            <div class="flex justify-between items-center mb-6">
-              <h2 class="text-lg lg:text-2xl font-bold text-gray-900 ">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg lg:text-2xl font-bold text-gray-900 ">
                 Discussion (20)
                 {/* comment count */}
               </h2>
             </div>
-            <form class="mb-6">
-              <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200  ">
-                <label for="comment" class="sr-only">
-                  Your comment
-                </label>
-                <textarea
-                  id="comment"
-                  rows="6"
-                  class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none   "
-                  placeholder="Write a comment..."
-                  required
-                ></textarea>
-              </div>
-              <button className="btn btn-active btn-primary">Primary</button>
-            </form>
+            <CommentFrom
+              collectionRef={CollectionRef}
+              userId={userId}
+              userName={userName}
+              userProfileUrl={userProfileUrl}
+            />
           </div>
           <div className="flex mb-10 flex-col items-center">
             <Comment />
