@@ -9,8 +9,14 @@ import ShareButtons from "./ShareButtons";
 
 import { db } from "../firebase.config";
 
-import { getDoc, doc, collection } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  collection,
+  getCountFromServer,
+} from "firebase/firestore";
 import CommentFrom from "./CommentFrom";
+import CommentLists from "./CommentLists";
 
 function PostPage() {
   const stepsName = [
@@ -33,6 +39,8 @@ function PostPage() {
 
   const [highlightedSteps, setHighlightedSteps] = useState(1);
 
+  const [count, setCount] = React.useState(0);
+
   const {
     createdAt,
     damageType,
@@ -48,7 +56,16 @@ function PostPage() {
     title,
   } = data;
 
-  const CollectionRef = collection(db, `posts/${id}/comments`);
+  const collectionRef = collection(db, `posts/${id}/comments`);
+
+  const fetchCollectionSize = async () => {
+    // Get the size of the collection
+    const snapshot = await getCountFromServer(collectionRef);
+
+    if (snapshot.data().count) {
+      setCount(snapshot.data().count);
+    }
+  };
 
   const fetchdata = async (collectionName, docId, stateName) => {
     const docRef = doc(db, collectionName, docId);
@@ -207,16 +224,14 @@ function PostPage() {
               </h2>
             </div>
             <CommentFrom
-              collectionRef={CollectionRef}
+              collectionRef={collectionRef}
               userId={userId}
               userName={userName}
               userProfileUrl={userProfileUrl}
             />
-          </div>
-          <div className="flex mb-10 flex-col items-center">
-            <Comment />
-            <Comment />
-            <Comment />
+            <div className="flex mb-10 flex-col items-center">
+              <CommentLists collectionRef={collectionRef} />
+            </div>
           </div>
         </div>
       </div>

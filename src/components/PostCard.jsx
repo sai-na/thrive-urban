@@ -1,36 +1,52 @@
 import React from "react";
+import { ImLocation2 } from "react-icons/im";
+import { formatDistanceToNow } from "date-fns";
 
-const PostCard = ({ title, content }) => {
+const PostCard = ({ imgUrl, title, city, jsDate }) => {
+  const stepsName = [
+    "Not Started",
+    "Review",
+    "Under Review",
+    "Sanctioned",
+    "Work Ongoing",
+    "Completed",
+  ];
+  function generateSteps(stepCount, highlightedSteps) {
+    const steps = [];
+    for (let i = 0; i < stepCount; i++) {
+      const isPrimary = i < highlightedSteps;
+      steps.push(
+        <li className={`step ${isPrimary ? "step-primary" : ""}`} key={i}>
+          {stepsName[i]}
+        </li>
+      );
+    }
+    return steps;
+  }
+  const stepCount = stepsName.length; // Total number of steps
   return (
-    <div className="rounded-md border border-gray-300 shadow-sm overflow-hidden">
-      <div className="p-4 bg-white">
-        <h2 className="text-xl font-bold">{title}</h2>
-        <p className="mt-2 text-base">{content}</p>
-      </div>
-      <div className="p-4 flex justify-between items-center">
-        <button
-          type="button"
-          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md font-semibold text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          Answer
-        </button>
-        <div className="flex items-center">
-          <svg
-            className="w-4 h-4 text-gray-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M14 5l7 7m0 0l-7 7m0 0H8"
-            />
-          </svg>
-          <span className="ml-2 text-sm text-gray-500">
-            {content.length} views
-          </span>
+    <div className="card w-96 bg-base-100 shadow-xl">
+      <figure className="w-full h-56">
+        <img src={imgUrl} className="object-cover " />
+      </figure>
+      <div className="card-body">
+        <h2 className="card-title">{title && title}</h2>
+        <span className="text-left my-1">
+          {formatDistanceToNow(jsDate, { addSuffix: true })}
+        </span>
+        <p className="text-base text-left text-gray-400">
+          <div className="badge badge-ghost">
+            {" "}
+            <ImLocation2 className="mr-2" /> {city && city}
+          </div>
+        </p>
+        <p className="line-clamp-2">
+          If a dog chews shoes whose shoes does he choose? If a dog chews shoes
+          whose shoes does he choose? If a dog chews shoes whose shoes does he
+          choose?
+        </p>
+        <div className="card-actions justify-end">
+          <button className="btn btn-primary">Read More</button>
         </div>
       </div>
     </div>

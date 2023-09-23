@@ -1,7 +1,15 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa6";
 
-function Comment() {
+function Comment({
+  userName,
+  userProfileUrl,
+  jsDate,
+  text,
+  likes,
+  docId,
+  // handleLikes,
+}) {
   return (
     <article className="p-6 text-base mb-2  mx-4 max-w-4xl md:max-w-4xl rounded-xl  bg-gray-200 ">
       <footer className="flex justify-between items-center mb-2">
@@ -9,31 +17,32 @@ function Comment() {
           <p className="inline-flex items-center mr-3 text-sm text-gray-900  font-semibold">
             <img
               className="mr-2 w-8 h-8 rounded-full"
-              src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+              src={
+                userProfileUrl ||
+                "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+              }
               alt="Michael Gough"
             />
-            Michael Gough
+            {userName && userName}
           </p>
           <p className="text-sm text-gray-900 ">
             <time pubdate="" dateTime="2022-02-08" title="February 8th, 2022">
-              Feb. 8, 2022
+              {jsDate && jsDate?.toDateString()}
             </time>
           </p>
         </div>
       </footer>
       <p className="text-gray-900 ">
-        Very straight-to-point article. Really worth time reading. Thank you!
-        But tools are just the instruments for the UX designers. The knowledge
-        of the design tools are as important as the creation of the design
-        strategy.
+        {text && text}
+        {/* <span className="text-xs text-gray-900 ml-2">Read more</span> */}
       </p>
       <div className="flex items-center mt-4 space-x-4">
         <button
           type="button"
+          //onClick={handleLikes(docId)}
           className="flex items-center text-sm text-gray-900 hover:underline  font-medium"
         >
-          <FaHeart className="mr-2" /> 5 {/* like count  */}
-          Like
+          <FaHeart className="mr-2" /> {likes && likes} Likes
         </button>
         <button
           type="button"

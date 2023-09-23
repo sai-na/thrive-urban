@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import StepsComponent from "./components/T";
 import { ToastContainer } from "react-toastify";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Router>
         <UserAuthContextProvider>
           <ToastContainer limit={2} />
+          <Navbar />
           <Routes>
             <Route path="/" element={<StepsComponent />} />
             <Route path="/posts" element={<PostList />} />
