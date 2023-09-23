@@ -8,6 +8,7 @@ import StepsComponent from "./components/T";
 import { ToastContainer } from "react-toastify";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -20,6 +21,14 @@ function App() {
             <Route path="/" element={<StepsComponent />} />
             <Route path="/posts" element={<PostList />} />
             <Route path="/post/:id" element={<PostPage />} />
+            <Route
+              path="/createPost"
+              element={
+                <ProtectedRoute>
+                  <CreatePost />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/signUp" element={<SignUp />} />
           </Routes>

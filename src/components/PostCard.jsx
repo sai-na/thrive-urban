@@ -2,7 +2,7 @@ import React from "react";
 import { ImLocation2 } from "react-icons/im";
 import { formatDistanceToNow } from "date-fns";
 
-const PostCard = ({ imgUrl, title, city, jsDate }) => {
+const PostCard = ({ imgUrl, title, city, jsDate, damageType }) => {
   const stepsName = [
     "Not Started",
     "Review",
@@ -30,7 +30,9 @@ const PostCard = ({ imgUrl, title, city, jsDate }) => {
         <img src={imgUrl} className="object-cover " />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{title && title}</h2>
+        <h2 className="card-title">
+          {title && title} {damageType && <>- {damageType}</>}{" "}
+        </h2>
         <span className="text-left my-1">
           {formatDistanceToNow(jsDate, { addSuffix: true })}
         </span>
