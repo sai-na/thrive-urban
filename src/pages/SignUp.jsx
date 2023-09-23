@@ -1,10 +1,56 @@
 import React from "react";
+import { useState } from "react";
 import "./bg.css";
 import { Link } from "react-router-dom";
 import { FaMountainCity } from "react-icons/fa6";
 import { FormField } from "../components";
+import { signUpWithEmailAndPassword, signInWithEmailAndPassword } from "../scripts/auth";
+
+
+
+
+ 
+
+
+
+
+
+
+
 
 function SignUp() {
+
+  const [form, setForm] = useState({
+    email:"",
+    password:""
+  });
+  
+  
+  
+  //const [email, setEmail] = useState("");
+  //const [password, setPassword] = useState("");
+  
+  
+  
+  
+  const handleFormFieldChange = (fieldName, e) => {
+    setForm({ ...form, [fieldName]: e.target.value });
+  };
+  
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      // Call the Firebase signup function directly with email and password
+      await signUpWithEmailAndPassword(form.email, form.password);
+  
+      // Handle success (e.g., show a success message, redirect, etc.)
+      console.log("User signed up successfully!");
+    } catch (error) {
+      // Handle error (e.g., show an error message to the user)
+      console.error("Signup error:", error);
+    }
+  };
   return (
     <div className="min-h-screen containe">
       <div className="w-full flex justify-center pt-16 md:pt-24">
@@ -65,16 +111,16 @@ function SignUp() {
                 placeholder="email"
                 inputType="email"
                 mb="mb-1"
-                // value={form.email}
-                // handleChange={(e) => handleFormFieldChange("email", e)}
+                value={form.email}
+                handleChange={(e) => handleFormFieldChange("email", e)}
               />
               <FormField
                 labelName="Password*"
                 placeholder="Password"
                 inputType="text"
                 mb="mb-1"
-                // value={form.Password}
-                // handleChange={(e) => handleFormFieldChange("Password", e)}
+                value={form.password}
+                handleChange={(e) => handleFormFieldChange("Password", e)}
               />
 
               <div className="form-control">
