@@ -83,7 +83,7 @@ function CommentFrom({ collectionRef, userName, userProfileUrl }) {
       </div>
 
       <button onClick={addComment} className="btn btn-active btn-primary">
-        Primary
+        Post
       </button>
     </form>
   );

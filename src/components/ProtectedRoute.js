@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 const ProtectedRoute = ({ children }) => {
   const { user } = useUserAuth();
 
-  if (!user) {
+  if (user) {
     toast.error("Authentication required for accessing page");
 
     return <Navigate to="/" />;

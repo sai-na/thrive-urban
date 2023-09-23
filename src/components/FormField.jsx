@@ -2,6 +2,7 @@ import React from "react";
 
 const FormField = ({
   labelName,
+  required,
   placeholder,
   inputType,
   isTextArea,
@@ -19,7 +20,7 @@ const FormField = ({
         )}
         {isTextArea ? (
           <textarea
-            required
+            required={required}
             value={value}
             onChange={handleChange}
             rows={5}
@@ -28,8 +29,8 @@ const FormField = ({
           />
         ) : (
           <input
-            required
             value={value}
+            required={required}
             onChange={handleChange}
             type={inputType}
             placeholder={placeholder}

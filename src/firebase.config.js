@@ -11,12 +11,12 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCaRUpjz_7b_P0JIVzs25p4G__j2c0jE8Q",
-  authDomain: "thrive-urban-9d119.firebaseapp.com",
-  projectId: "thrive-urban-9d119",
-  storageBucket: "thrive-urban-9d119.appspot.com",
-  messagingSenderId: "432231047452",
-  appId: "1:432231047452:web:a32a7203d1fd75adf4dad9",
+  apiKey: "AIzaSyALNMotC7Vv7ez_ioGAb1MbZYOZbrCUDdo",
+  authDomain: "test-44e25.firebaseapp.com",
+  projectId: "test-44e25",
+  storageBucket: "test-44e25.appspot.com",
+  messagingSenderId: "686551071696",
+  appId: "1:686551071696:web:22c57a7e364512f83d97d5",
 };
 
 // Initialize Firebase

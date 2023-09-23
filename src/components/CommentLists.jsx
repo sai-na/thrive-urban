@@ -35,7 +35,7 @@ function CommentLists({ collectionRef }) {
         toast.error("Comment is not loading");
       }
     );
-  });
+  }, []);
 
   const handleLikes = (docId) => {
     if (!user) {

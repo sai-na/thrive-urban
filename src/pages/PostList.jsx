@@ -5,7 +5,10 @@ import {
   getDoc,
   getDocs,
   setDoc,
+  query,
   onSnapshot,
+  where,
+  orderBy,
 } from "@firebase/firestore";
 //context
 import { useUserAuth } from "../context/UserAuthContext";
@@ -22,16 +25,18 @@ function PostList() {
 
   const collectionRef = collection(db, "posts");
 
+  const q = query(collectionRef, where("postPublicly", "==", true));
+
   const fetchData = async () => {
     try {
-      const querySnapshot = await getDocs(collectionRef);
+      const querySnapshot = await getDocs(q);
       const documents = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         DocId: doc.id,
       }));
       setData(documents);
     } catch (e) {
-      toast.error("Comment is not loading");
+      toast.error("sss");
     }
   };
 
