@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./pages/Home";
+import Update from "./pages/Update";
 
 function App() {
   return (
@@ -18,9 +20,10 @@ function App() {
           <ToastContainer limit={2} />
           <Navbar />
           <Routes>
-            <Route path="/" element={<StepsComponent />} />
+            <Route path="/" element={<Home />} />
             <Route path="/posts" element={<PostList />} />
             <Route path="/post/:id" element={<PostPage />} />
+            <Route path="/updatePost/:id" element={<Update />} />
             <Route
               path="/createPost"
               element={

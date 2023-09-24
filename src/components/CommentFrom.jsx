@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import Spinner from "./Spinner";
 
 function CommentFrom({ collectionRef, userName, userProfileUrl }) {
-  const { user } = useUserAuth();
+  const { user, userDetails } = useUserAuth();
 
   const [loading, setLoading] = React.useState(false);
   const [text, setText] = React.useState("");
@@ -49,15 +49,17 @@ function CommentFrom({ collectionRef, userName, userProfileUrl }) {
       addDoc(collectionRef, {
         createdAt: serverTimestamp(),
         text,
-        userName,
-        userProfileUrl,
-        //userId: user?.uid,
+        userName: userDetails?.name,
+        userProfileUrl:
+          userDetails?.imgUrl ||
+          "https://as1.ftcdn.net/v2/jpg/05/57/20/16/1000_F_557201692_P86sh0v8g00VseZacjBOOKJmGLSvEpQb.jpg",
+        userId: user?.uid,
       });
       setText("");
 
       toast.success("Comment added successfully");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       toast.error("Something went wrong");
     } finally {
       setLoading(false);

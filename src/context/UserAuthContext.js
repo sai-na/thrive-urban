@@ -23,6 +23,8 @@ export function UserAuthContextProvider({ children }) {
 
   const [userDetails, setUserDetails] = useState();
 
+  console.log(userDetails);
+
   function logOut() {
     window.location.reload(false);
     return signOut(auth);
@@ -37,9 +39,10 @@ export function UserAuthContextProvider({ children }) {
       onSnapshot(doc(db, "users", uid), (doc) => {
         setUserDetails({ ...doc.data(), uid: uid });
       });
+      console.log({ ...doc.data(), uid: uid });
     } catch (error) {
-      toast.error("Could not fetch data");
-      console.log(error);
+      // toast.error("Could not fetch data");
+      console.log(error.message);
     }
   };
 

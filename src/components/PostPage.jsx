@@ -18,7 +18,11 @@ import {
 import CommentFrom from "./CommentFrom";
 import CommentLists from "./CommentLists";
 
+import { useUserAuth } from "../context/UserAuthContext";
+
 function PostPage() {
+  const { user, userDetails } = useUserAuth();
+
   const stepsName = [
     "Not Started",
     "Review",
@@ -54,6 +58,7 @@ function PostPage() {
     userName,
     userProfileUrl,
     title,
+    pwdMessage,
   } = data;
 
   const collectionRef = collection(db, `posts/${id}/comments`);
@@ -200,10 +205,22 @@ function PostPage() {
             <div className="mt-5">
               <span className="font-bold font-mono text-xl mb-0">
                 Working Process
+                {userDetails && userDetails.pwd === true && (
+                  <>
+                    <Link
+                      to={`/updatePost/${id}`}
+                      className="btn btn-primary btn-active btn-lg ml-4"
+                    >
+                      Update
+                    </Link>
+                  </>
+                )}
+                {/* add update option */}
               </span>
               <ul className="steps my-8 w-full over steps-vertical steps-lg xl:steps-horizontal">
                 {generateSteps(stepCount, highlightedSteps)}
               </ul>
+              {pwdMessage && <p>Message from pwd : {pwdMessage} </p>}
             </div>
 
             {title && (
@@ -219,7 +236,7 @@ function PostPage() {
           <div className="max-w-4xl mx-auto px-4">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-lg lg:text-2xl font-bold text-gray-900 ">
-                Discussion (20)
+                Discussions
                 {/* comment count */}
               </h2>
             </div>

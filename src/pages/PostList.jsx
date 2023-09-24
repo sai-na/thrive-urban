@@ -53,7 +53,7 @@ function PostList() {
               Road Damages
             </h2>
 
-            <div className="flex mb-10 flex-col items-center">
+            <div className="flex mb-10 justify-center items-center">
               {data.map((item, index) => (
                 <Link to={`/post/${item.DocId}`}>
                   <PostCard

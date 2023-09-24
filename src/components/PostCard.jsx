@@ -25,7 +25,7 @@ const PostCard = ({ imgUrl, title, city, jsDate, damageType }) => {
   }
   const stepCount = stepsName.length; // Total number of steps
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="card w-96 bg-base-100 mx-4 shadow-xl">
       <figure className="w-full h-56">
         <img src={imgUrl} className="object-cover " />
       </figure>

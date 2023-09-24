@@ -1,10 +1,43 @@
 import React from "react";
 import Background from "../static/Background.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaMountainCity } from "react-icons/fa6";
 import { FormField } from "../components";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
 
 function Login() {
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = formData;
+
+  const navigate = useNavigate();
+
+  const handleFormFieldChange = (fieldName, e) => {
+    setFormData({ ...formData, [fieldName]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      if (userCredential.user) {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Bad User Credentials");
+    }
+  };
   return (
     <div
       className="min-h-screen"
@@ -34,16 +67,16 @@ function Login() {
                   placeholder="email"
                   inputType="email"
                   mb="mb-1"
-                  // value={form.email}
-                  // handleChange={(e) => handleFormFieldChange("email", e)}
+                  value={email}
+                  handleChange={(e) => handleFormFieldChange("email", e)}
                 />
                 <FormField
                   labelName="Password"
                   placeholder="Password"
                   inputType="text"
                   mb="mb-1"
-                  // value={form.Password}
-                  // handleChange={(e) => handleFormFieldChange("Password", e)}
+                  value={password}
+                  handleChange={(e) => handleFormFieldChange("password", e)}
                 />
 
                 <div className="flex justify-between my-2c">
@@ -64,7 +97,9 @@ function Login() {
                 </div>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button onClick={onSubmit} className="btn btn-primary">
+                  Login
+                </button>
               </div>
             </div>
           </div>
