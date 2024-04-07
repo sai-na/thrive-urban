@@ -19,7 +19,7 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar bg-gray-100">
+    <div className="navbar fixed bg-gray-100 z-30">
       <div className="flex-1">
         <span className="btn btn-ghost normal-case text-xl"> Thrive Urban</span>
       </div>
